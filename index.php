@@ -13,7 +13,7 @@
 <body>
     <nav>
         <ul>
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.php">Home</a></li>
           <li><a href="about.html">About Me</a></li>
           <li><a href="viri.html">Viri</a></li>
           <li><a href="logout.php">Odjava</a></li>
