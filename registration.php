@@ -1,3 +1,6 @@
+<?php 
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +51,7 @@
 
     ?>
 
-    <h2>Registration Form</h2>
+    <h2>Registracija</h2>
     <form method="post" action="registration.php">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="<?php echo $username; ?>">
@@ -57,6 +60,8 @@
         <input type="password" id="password" name="password">
         <br>
         <input type="submit" value="Register">
+        <br>
+        <a href="login.php">Prijava</a>
     </form>
 
     <?php

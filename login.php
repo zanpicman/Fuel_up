@@ -1,3 +1,7 @@
+<?php 
+session_start();
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +39,7 @@
             $result = mysqli_query($connection, $query);
             $row = mysqli_fetch_assoc($result);
             if ($row) {
-            
+                $_SESSION["loggedin"] = true;
                 header("Location: index.php");
                 exit();
             } else {
@@ -46,7 +50,7 @@
 
     ?>
 
-    <h2>Login Form</h2>
+    <h2>Prijava</h2>
     <form method="post" action="login.php">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="<?php echo $username; ?>">
@@ -55,6 +59,8 @@
         <input type="password" id="password" name="password">
         <br>
         <input type="submit" value="Login">
+        <br>
+        <a href="registration.php">Registracija</a>
     </form>
 
     <?php
