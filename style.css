@@ -1,0 +1,178 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    background-color:  rgba(110, 196, 224, 0.589);
+  }
+
+  nav {
+    background-color: #2c2c2cf5;
+    height: 50px;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+  }
+  
+  nav ul li {
+    height: 100%;
+  }
+  
+  nav ul li a {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 0 20px;
+    height: 100%;
+  }
+ 
+legend {
+    font-weight: bold;
+  }
+  
+.input  {
+    display: grid;
+    grid-template-columns: 50%  50%;
+    float: left;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 75%  25%;
+
+}
+
+.input button {
+    width: 110px;
+    grid-column: 2 / span 1;
+    margin-left: 30px ;
+    margin-top: 10px;
+    padding: 3px;
+
+}
+
+.input input,select {
+    margin: 3px;
+}
+
+.info label {
+    margin: 5px;
+
+}
+
+#polnjenja, #stroski {
+    width: 100%;
+}
+
+tr {
+	text-align: center;
+    padding: 3px 7px 2px 7px;
+
+}
+.remove {
+margin: 0px;
+
+}
+
+.remove {
+    padding: 0px;
+    font-size:medium;
+    font-weight:550;
+    
+}
+
+fieldset {
+    background-color: rgba(0, 47, 255, 0.13);
+    border-color: black;
+    padding: 10px;
+    margin: 5px;
+
+}
+
+.podatki {
+    text-align: center;
+    
+}
+
+.viri a{
+    color: rgb(29, 175, 16);
+    font-size: 20px;
+}
+
+
+@media screen and (min-width: 600px) { 
+    .container {
+        display: flex;
+    }
+    .left-side {
+        flex: 1;
+        width: 45%;  
+        padding-left: 60px;
+        padding-top: 30px;
+    }
+    body {
+        font-size: 16px;
+      }
+
+    .input {
+        float: left;
+        width: 400px;
+        margin: 20px;
+        margin-right: 20%;
+    
+    }
+    .input label{
+        margin-left: 20px;
+    }
+    .info {
+        float: left;
+        width: 400px;
+        margin:20px;
+    }
+    .info label {
+        margin: 5px;
+        margin-left: 20px;
+    }
+    #last {
+        float: right;
+    }
+    .input button {
+        margin-left: 45px;
+        height: 30px;
+    }
+    .input input {
+        margin: 2px;
+        height: 20px;
+    }
+    .input select {
+
+       height: 28px; 
+    }
+    .right-side {
+        width: 55%;
+        float: right;
+        padding-left: 60px;
+        padding-top: 30px;
+        padding-right: 7%;
+    }
+    .vnosi {
+        margin: 20px;
+        margin-right: 10%;
+
+
+    }
+    .info {
+        grid-template-columns: 70%  23%;
+    }
+    
+
+}
+
+
+
