@@ -1,33 +1,34 @@
 <?php include("session.php"); 
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dodajPolnenje'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dodajPolnenje'])) {
     $stevec = $_POST['stevec1'];
     $vrsta = $_POST['vrsta'];
     $kolicina = $_POST['kolicina'];
     $cenaL = $_POST['cenaL'] * $_POST['kolicina'];
 
-
     $connection = mysqli_connect("localhost", "root", "", "uporabniki");
     $userid = $_SESSION["id"];
-    $query = "INSERT INTO poraba (uporabnikId, stevec, tipGoriva, kolicina, cenaLiter) VALUES ('$userid', '$stevec', '$vrsta', '$kolicina', '$cenaL')";
-
-    mysqli_query($connection, $query);
+    $query = "INSERT INTO poraba (uporabnikId, stevec, tipGoriva, kolicina, cenaLiter) VALUES (?, ?, ?, ?, ?)";
+    $statement = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($statement, "isssd", $userid, $stevec, $vrsta, $kolicina, $cenaL);
+    mysqli_stmt_execute($statement);
 
     header("Location: index.php");
     exit();
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dodajStrosek'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dodajStrosek'])) {
     $tipStroska = $_POST['tip'];
-    $skupniStrosek= $_POST['strosek'];
+    $skupniStrosek = $_POST['strosek'];
     $datum = $_POST['datum'];
     $stevec = $_POST['stevec2'];
 
     $connection = mysqli_connect("localhost", "root", "", "uporabniki");
     $userid = $_SESSION["id"];
-    $query = "INSERT INTO ostaliStroski (uporabnikId, tipStroska, cena, datumStroska, stevec) VALUES ('$userid', '$tipStroska', '$skupniStrosek', '$datum', '$stevec')";
-
-    mysqli_query($connection, $query);
+    $query = "INSERT INTO ostaliStroski (uporabnikId, tipStroska, cena, datumStroska, stevec) VALUES (?, ?, ?, ?, ?)";
+    $statement = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($statement, "isdsd", $userid, $tipStroska, $skupniStrosek, $datum, $stevec);
+    mysqli_stmt_execute($statement);
 
     header("Location: index.php");
     exit();
@@ -35,22 +36,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dodajStrosek'])) {
 
 $connection = mysqli_connect("localhost", "root", "", "uporabniki");
 $userid = $_SESSION["id"];
-$query = "SELECT id, stevec, tipGoriva, kolicina, cenaLiter FROM poraba WHERE uporabnikId = '$userid' ORDER BY stevec ASC";
-$result = mysqli_query($connection, $query);
-
+$query = "SELECT id, stevec, tipGoriva, kolicina, cenaLiter FROM poraba WHERE uporabnikId = ? ORDER BY stevec ASC";
+$statement = mysqli_prepare($connection, $query);
+mysqli_stmt_bind_param($statement, "i", $userid);
+mysqli_stmt_execute($statement);
+$result = mysqli_stmt_get_result($statement);
 $polnenja = array();
 while ($row = mysqli_fetch_assoc($result)) {
     $polnenja[] = $row;
 }
 
-$query = "SELECT id, cena, tipStroska, datumStroska, stevec FROM ostaliStroski WHERE uporabnikId = '$userid' ORDER BY stevec ASC";
-$result = mysqli_query($connection, $query);
+$query = "SELECT id, cena, tipStroska, datumStroska, stevec FROM ostaliStroski WHERE uporabnikId = ? ORDER BY stevec ASC";
+$statement = mysqli_prepare($connection, $query);
+mysqli_stmt_bind_param($statement, "i", $userid);
+mysqli_stmt_execute($statement);
+$result = mysqli_stmt_get_result($statement);
 $stroski = array();
 while ($row = mysqli_fetch_assoc($result)) {
     $stroski[] = $row;
 }
-
-
 
 mysqli_close($connection);
 
@@ -113,7 +117,7 @@ mysqli_close($connection);
             <label for="strosek">Skupni strosek (€):</label>
             <input id="strosek" type="number" step="0.0001" name="strosek">
             <label for="datum">Datum stroška:</label>
-            <input id="datum" type="date" name="datum">
+            <input id="datum" type="date" name="datum" required>
 
             <label for="stevec2">Kilometrski števec (km):</label>
             <input type="number" step="0.0001" id="stevec2" name="stevec2">

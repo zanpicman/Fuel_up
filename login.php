@@ -36,13 +36,22 @@ session_start();
             $password = trim($password);
             $password = stripslashes($password);
             $password = htmlspecialchars($password);
+            
         }
 
         if (empty($errors)) {
-            $query = "SELECT * FROM uporabnik WHERE uporabniskoIme='$username' AND geslo='$password'";
+            $query = "SELECT * FROM uporabnik WHERE uporabniskoIme='$username'";
             $result = mysqli_query($connection, $query);
             $row = mysqli_fetch_assoc($result);
             if ($row) {
+                if (password_verify($password, $row["geslo"])) {
+                    $_SESSION["loggedin"] = true;
+                    $_SESSION["id"] = $row["id"];
+                    header("Location: index.php");
+                    exit();
+                } else {
+                    $errors[] = "Napačno uporabniško ime ali geslo";
+                }
                 $_SESSION["loggedin"] = true;
                 $_SESSION["id"] = $row["id"];
                 header("Location: index.php");

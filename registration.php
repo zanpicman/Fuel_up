@@ -42,10 +42,12 @@
             $password = trim($password);
             $password = stripslashes($password);
             $password = htmlspecialchars($password);
+
+            $hash = password_hash($password, PASSWORD_DEFAULT);
         }
 
         if (empty($errors)) {
-            $query = "INSERT INTO uporabnik (uporabniskoIme, geslo) VALUES ('$username', '$password')";
+            $query = "INSERT INTO uporabnik (uporabniskoIme, geslo) VALUES ('$username', '$hash')";
             mysqli_query($connection, $query);
             echo "<script>alert('Registracija uspešna!'); window.location.href = 'login.php';</script>";
 
