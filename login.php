@@ -40,6 +40,7 @@ session_start();
             $row = mysqli_fetch_assoc($result);
             if ($row) {
                 $_SESSION["loggedin"] = true;
+                $_SESSION["id"] = $row["id"];
                 header("Location: index.php");
                 exit();
             } else {

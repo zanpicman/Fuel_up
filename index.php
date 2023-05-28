@@ -1,4 +1,21 @@
-<?php include("session.php"); ?>
+<?php include("session.php"); 
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    $stevec = $_POST['stevec1'];
+    $vrsta = $_POST['vrsta'];
+    $kolicina = $_POST['kolicina'];
+    $cenaL = $_POST['cenaL'];
+
+    $connection = mysqli_connect("localhost", "root", "", "uporabniki");
+    $userid = $_SESSION["id"];
+    $query = "INSERT INTO poraba (uporabnikId, stevec, tipGoriva, kolicina, cenaLiter) VALUES ('$userid', '$stevec', '$vrsta', '$kolicina', '$cenaL')";
+
+    mysqli_query($connection, $query);
+
+}
+
+
+?>
 
 
 <!DOCTYPE html>
@@ -22,22 +39,24 @@
     
 <div class="container">
     <div class="left-side">
-        <fieldset class="input" id="input1">
-            <legend>Polnenje</legend>
-            <label for="stevec1">Kilometrski števec (km):</label>
-            <input id="stevec1" type="number"> 
-            <label for="vrsta">Vrsta Goriva:</label>
-            <select name="vrsta" id="vrsta">
-                <option>Dizel</option>
-                <option>Bencin(95)</option>
-                <option>Bencin(98)</option>        
-            </select>
-            <label for="kolicina">Količina goriva (l):</label>
-            <input id="kolicina" type="number">
-            <label for="cenaL">Cena/liter (€):</label>
-            <input id="cenaL" type="number">
-            <button id="dodajPolnenje">Dodaj polnenje</button>
-        </fieldset>
+        <form action="index.php" method="post">
+            <fieldset class="input" id="input1">
+                <legend>Polnenje</legend>
+                <label for="stevec1">Kilometrski števec (km):</label>
+                <input id="stevec1" name="stevec1"type="number"> 
+                <label for="vrsta">Vrsta Goriva:</label>
+                <select name="vrsta" id="vrsta">
+                    <option>Dizel</option>
+                    <option>Bencin(95)</option>
+                    <option>Bencin(98)</option>        
+                </select>
+                <label for="kolicina">Količina goriva (l):</label>
+                <input id="kolicina" name="kolicina" type="number">
+                <label for="cenaL">Cena/liter (€):</label>
+                <input id="cenaL" name="cenaL" type="number">
+                <button type="submit" id="dodajPolnenje">Dodaj polnenje</button>
+            </fieldset>
+        </form>
             
         <fieldset class="input" id="input2">
             <legend>Strošek</legend>
