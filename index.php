@@ -12,9 +12,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_query($connection, $query);
 
+    header("Location: index.php");
+    exit();
 }
+#TODO: Dodajanje stroškov!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+$connection = mysqli_connect("localhost", "root", "", "uporabniki");
+$userid = $_SESSION["id"];
+$query = "SELECT id, stevec, tipGoriva, kolicina, cenaLiter FROM poraba WHERE uporabnikId = '$userid' ORDER BY stevec ASC";
+$result = mysqli_query($connection, $query);
 
+$polnenja = array();
+while ($row = mysqli_fetch_assoc($result)) {
+    $polnenja[] = $row;
+}
+mysqli_close($connection);
 ?>
 
 
@@ -54,14 +66,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input id="kolicina" name="kolicina" type="number">
                 <label for="cenaL">Cena/liter (€):</label>
                 <input id="cenaL" name="cenaL" type="number">
-                <button type="submit" id="dodajPolnenje">Dodaj polnenje</button>
+                <button type="submit" id="dodajPolnenje" name="dodajPolnenje">Dodaj polnenje</button>
             </fieldset>
         </form>
             
         <fieldset class="input" id="input2">
             <legend>Strošek</legend>
             <label for="tip">Tip stroška: </label>
-            <select name="tip" id="tip">
+            <select name="tip" id="tip" name="tip">
                 <option value="servis">Servis</option>
                 <option value="vzdrževanje">Vzdrževanje</option>
                 <option value="registracija">Registracija</option> 
@@ -71,18 +83,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </select>
         
             <label for="strosek">Skupni strosek (€):</label>
-            <input id="strosek" type="number">
+            <input id="strosek" type="number" name="strosek">
             <label for="datum">Datum stroška:</label>
-            <input id="datum" type="date">
+            <input id="datum" type="date" name="datum">
 
             <label for="stevec2">Kilometrski števec (km):</label>
-            <input type="number" id="stevec2">
-            <button id="dodajStrosek">Dodaj strošek</button>
+            <input type="number" id="stevec2" id="stevec2">
+            <button type="submit" id="dodajStrosek" name="dodajStrosek">Dodaj strošek</button>
         </fieldset>
         <fieldset class="info" id="info">
             <legend>Podatki</legend>
             <label>Povrečna poraba goriva l/100km:</label>
-            <label class="podatki" id="poraba">0</label>
+            <label class="podatki" id="poraba" name>0</label>
             <label>Zadnja poraba goriva l/100km:</label>
             <label class="podatki" id="zadnja">0</label>
             <label>Zadnja cena goriva na liter v evrih:</label>
@@ -103,6 +115,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <th>Vsota (€)</th>
             
             </tr>
+            <?php foreach ($polnenja as $polnenje): ?>
+
+            <tr>
+                <td><?php echo $polnenje['stevec']; ?></td>
+                <td><?php echo $polnenje['tipGoriva']; ?></td>
+                <td><?php echo $polnenje['kolicina']; ?></td>
+                <td><?php echo $polnenje['cenaLiter']; ?></td>
+            </tr>
+            <?php endforeach; ?>
         </table>
       </fieldset>
         <fieldset class="vnosi">
