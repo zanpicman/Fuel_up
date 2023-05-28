@@ -69,7 +69,7 @@
         <br>
         <input type="submit" value="Registracija">
         <br>
-        <a href="login.php">Prijava</a>
+        <p>Nazaj na <a href="login.php" style="color: green" >prijavo</a> </p>
     
     </fieldset>
 </form>

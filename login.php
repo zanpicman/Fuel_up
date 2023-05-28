@@ -2,6 +2,7 @@
 session_start();
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,10 +53,7 @@ session_start();
                 } else {
                     $errors[] = "Napačno uporabniško ime ali geslo";
                 }
-                $_SESSION["loggedin"] = true;
-                $_SESSION["id"] = $row["id"];
-                header("Location: index.php");
-                exit();
+                
             } else {
                 $errors[] = "Napačno uporabniško ime ali geslo";
             }
@@ -75,7 +73,7 @@ session_start();
             <br>
             <input type="submit" value="Prijava">
             <br>
-            <a href="registration.php">Registracija</a>
+            <p>Če še nimate računa se registrirajte <a href="registration.php" style="color: green" >tukaj</a></p>  
         </fieldset>
     </form>
 

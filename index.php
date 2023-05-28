@@ -115,12 +115,12 @@ mysqli_close($connection);
             </select>
         
             <label for="strosek">Skupni strosek (€):</label>
-            <input id="strosek" type="number" step="0.0001" name="strosek">
+            <input id="strosek" type="number" step="0.0001" name="strosek" required>
             <label for="datum">Datum stroška:</label>
             <input id="datum" type="date" name="datum" required>
 
             <label for="stevec2">Kilometrski števec (km):</label>
-            <input type="number" step="0.0001" id="stevec2" name="stevec2">
+            <input type="number" step="0.0001" id="stevec2" name="stevec2" required>
             <button type="submit" id="dodajStrosek" name="dodajStrosek">Dodaj strošek</button>
         </fieldset>
         </form>
@@ -151,10 +151,10 @@ mysqli_close($connection);
             <?php foreach ($polnenja as $polnenje): ?>
 
             <tr>
-                <td><?php echo $polnenje['stevec']; ?></td>
+                <td><?php echo sprintf("%.2f", $polnenje['stevec']); ?></td>
                 <td><?php echo $polnenje['tipGoriva']; ?></td>
-                <td><?php echo $polnenje['kolicina']; ?></td>
-                <td><?php echo $polnenje['cenaLiter']; ?></td>
+                <td><?php echo sprintf("%.2f", $polnenje['kolicina']); ?></td>
+                <td><?php echo sprintf("%.2f", $polnenje['cenaLiter']); ?></td>
                 <td>
                     <form action="delete.php" method="post"  onsubmit="return confirm('Ali ste prepričani, da bi radi odstranili ta vnos?'); ">
                         <input type="hidden" name="polnenjeId" value="<?php echo $polnenje['id']; ?>">
@@ -178,9 +178,9 @@ mysqli_close($connection);
             <?php foreach ($stroski as $strosek): ?>
 
                 <tr>
-                        <td><?php echo $strosek['stevec']; ?></td>
+                        <td><?php echo sprintf("%.2f", $strosek['stevec']); ?></td>
                         <td><?php echo $strosek['tipStroska']; ?></td>
-                        <td><?php echo $strosek['cena']; ?></td>
+                        <td><?php echo sprintf("%.2f", $strosek['cena']); ?></td>
                         <td><?php echo $strosek['datumStroska']; ?></td>
                         <td>
                     <form action="delete.php" method="post" onsubmit="return confirm('Ali ste prepričani, da bi radi odstranili ta vnos?'); ">
