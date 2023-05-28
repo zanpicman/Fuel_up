@@ -6,10 +6,14 @@ session_start();
 <html>
 <head>
     <title>Prijava</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="style-login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
 </head>
 <body>
     <?php
-    // Connect to database
     $connection = mysqli_connect("localhost", "root", "", "uporabniki");
 
     $username = $password = "";
@@ -50,22 +54,24 @@ session_start();
     }
 
     ?>
-
-    <h2>Prijava</h2>
-    <form method="post" action="login.php">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="<?php echo $username; ?>">
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
-        <br>
-        <input type="submit" value="Login">
-        <br>
-        <a href="registration.php">Registracija</a>
+  
+        <form method="post" action="login.php">
+        <fieldset class="input"id="input1">
+            <legend>Prijava</legend>
+            <label for="username">Uporabniško ime:</label>
+            <input type="text" id="username" name="username" value="<?php echo $username; ?>">
+            <br>
+            <label for="password">Geslo:</label>
+            <input type="password" id="password" name="password">
+            <br>
+            <input type="submit" value="Prijava">
+            <br>
+            <a href="registration.php">Registracija</a>
+        </fieldset>
     </form>
 
+
     <?php
-    // Display errors, if any
     if (!empty($errors)) {
         echo "<h3>Napake:</h3>";
         echo "<ul>";

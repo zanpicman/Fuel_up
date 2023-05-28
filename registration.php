@@ -4,11 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="style-login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registracija</title>
+    <link rel="stylesheet" type="text/css" href="style-login.css">
 </head>
-<body>
+<body class="login">
     <?php
-    // Connect to database
     $connection = mysqli_connect("localhost", "root", "", "uporabniki");
 
     $username = $password = "";
@@ -51,21 +55,23 @@
 
     ?>
 
-    <h2>Registracija</h2>
+   
     <form method="post" action="registration.php">
-        <label for="username">Username:</label>
+    <fieldset>
+        <legend>Registracija</legend>
+        <label for="username">uporabniško ime:</label>
         <input type="text" id="username" name="username" value="<?php echo $username; ?>">
         <br>
-        <label for="password">Password:</label>
+        <label for="password">Geslo:</label>
         <input type="password" id="password" name="password">
         <br>
-        <input type="submit" value="Register">
+        <input type="submit" value="Registracija">
         <br>
         <a href="login.php">Prijava</a>
-    </form>
-
+    
+    </fieldset>
+</form>
     <?php
-    // Display errors, if any
     if (!empty($errors)) {
         echo "<h3>Napake:</h3>";
         echo "<ul>";

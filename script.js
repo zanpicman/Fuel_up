@@ -26,6 +26,8 @@ for (let index = 2; index < table.rows.length; index++) {
 
     var cena = document.getElementById("cena");
     cena.textContent = (table.rows[table.rows.length-1].cells[3].innerText / table.rows[table.rows.length-1].cells[2].innerText).toFixed(2);
+    console.log(table.rows[table.rows.length-1].cells[3].innerText);
+    console.log(table.rows[table.rows.length-1].cells[2].innerText);
 
     var zakup =document.getElementById("zakup");
     var numElem= table.rows.length;

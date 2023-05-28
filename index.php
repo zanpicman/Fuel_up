@@ -4,7 +4,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['dodajPolnenje'])) {
     $stevec = $_POST['stevec1'];
     $vrsta = $_POST['vrsta'];
     $kolicina = $_POST['kolicina'];
-    $cenaL = $_POST['cenaL'];
+    $cenaL = $_POST['cenaL'] * $_POST['kolicina'];
+
 
     $connection = mysqli_connect("localhost", "root", "", "uporabniki");
     $userid = $_SESSION["id"];
@@ -66,7 +67,7 @@ mysqli_close($connection);
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Naloga 1</title>
 </head>
-<body>
+<body onload="podatki()">
     <nav>
         <ul>
           <li><a href="index.php">Home</a></li>
@@ -151,7 +152,7 @@ mysqli_close($connection);
                 <td><?php echo $polnenje['kolicina']; ?></td>
                 <td><?php echo $polnenje['cenaLiter']; ?></td>
                 <td>
-                    <form action="delete.php" method="post">
+                    <form action="delete.php" method="post"  onsubmit="return confirm('Ali ste prepričani, da bi radi odstranili ta vnos?'); ">
                         <input type="hidden" name="polnenjeId" value="<?php echo $polnenje['id']; ?>">
                         <button type="submit" name="deletePolnenje">X</button>
                     </form>
@@ -178,7 +179,7 @@ mysqli_close($connection);
                         <td><?php echo $strosek['cena']; ?></td>
                         <td><?php echo $strosek['datumStroska']; ?></td>
                         <td>
-                    <form action="delete.php" method="post">
+                    <form action="delete.php" method="post" onsubmit="return confirm('Ali ste prepričani, da bi radi odstranili ta vnos?'); ">
                         <input type="hidden" name="strosekId" value="<?php echo $strosek['id']; ?>">
                         <button type="submit" name="deleteStrosek">X</button>
                     </form>
